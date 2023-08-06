@@ -1,0 +1,19 @@
+- name: nginx install & start services
+  hosts: your_target_host
+  become: true
+
+  tasks:
+    - name: Gathering Facts
+      setup:
+
+    - name: Install nginx on Debian-based systems
+      apt:
+        name: nginx
+        state: present
+      when: ansible_facts['pkg_mgr'] == 'apt'
+
+    - name: Install nginx on Red Hat-based systems
+      yum:
+        name: nginx
+        state: present
+      when: ansible_facts['pkg_mgr'] == 'yum'
